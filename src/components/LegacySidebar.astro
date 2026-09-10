@@ -1,0 +1,8 @@
+---
+import { legacySidebar } from '../data/legacy-content';
+import { renderLegacyHtml } from '../lib/render-legacy-images';
+
+const normalizedSidebar = await renderLegacyHtml(legacySidebar);
+---
+
+<aside class="legacy-sidebar" aria-label="Información complementaria" set:html={normalizedSidebar}></aside>

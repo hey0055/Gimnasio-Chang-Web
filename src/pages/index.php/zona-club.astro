@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegacyContent from '../../components/LegacyContent.astro';
+import PageShell from '../../components/PageShell.astro';
+import { legacyPages } from '../../data/legacy-content';
+---
+
+<BaseLayout title="GALERIA | GIMNASIO CHANG taekwondo"><PageShell><h1>GALERIA</h1><LegacyContent content={legacyPages.galeria} /></PageShell></BaseLayout>

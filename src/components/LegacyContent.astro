@@ -1,0 +1,13 @@
+---
+import { renderLegacyHtml } from '../lib/render-legacy-images';
+
+interface Props {
+  content: string;
+  className?: string;
+}
+
+const { content, className } = Astro.props;
+const normalizedContent = await renderLegacyHtml(content);
+---
+
+<div class:list={['legacy-content', className]} set:html={normalizedContent}></div>

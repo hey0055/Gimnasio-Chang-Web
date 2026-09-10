@@ -1,0 +1,141 @@
+:root { --ink:#606060; --heading:#548da0; --border:#e8e8e8; --dark:#161616; --content-width:960px; font-family:Arial, Helvetica, sans-serif; color:var(--ink); background:#070707; }
+* { box-sizing:border-box; }
+html { background:#070707; }
+body { min-width:320px; margin:0; background:#070707 url('../assets/site/chrome/logooldborrosoinvertblurr.jpg') repeat; font-size:16px; line-height:1.65; }
+a { color:#50899c; text-decoration:none; }
+a:hover { color:#1f596e; text-decoration:underline; }
+img { max-width:100%; height:auto; }
+.site-frame { width:min(var(--content-width), calc(100% - 36px)); margin:48px auto; background:#fff; box-shadow:0 0 16px rgba(0,0,0,.34); }
+.skip-link { position:absolute; left:-9999px; top:auto; z-index:10; background:#fff; color:#111; padding:.55rem 1rem; }
+.skip-link:focus { left:1rem; top:1rem; }
+.masthead { padding:31px 39px 0; }
+.brand { padding-bottom:24px; border-bottom:1px solid var(--border); }
+.brand-name { display:inline-block; color:#161b20; font-size:28px; font-weight:700; line-height:1.1; letter-spacing:.01em; }
+.brand-name:hover { color:#161b20; text-decoration:none; }
+.brand-name span { font-weight:600; }
+.brand p { margin:7px 0 0; font-size:14px; color:#666; }
+.primary-nav details { position:relative; }
+.primary-nav summary { display:none; }
+.primary-nav ul { display:flex; flex-wrap:wrap; gap:0; margin:0; padding:0; border-bottom:1px solid var(--border); list-style:none; }
+.primary-nav a { display:block; padding:16px 19px 15px 0; margin-right:20px; color:#696969; font-size:13px; font-weight:700; }
+.primary-nav a:hover,.primary-nav a.is-current { color:#222; text-decoration:none; }
+.club-banner { display:block; margin:23px 0 36px; overflow:hidden; background:#111; }
+.club-banner img { display:block; width:100%; height:51px; object-fit:cover; object-position:center; }
+.two-column-layout { display:grid; grid-template-columns:minmax(0, 1fr) 252px; gap:42px; padding:0 39px 48px; }
+.main-content { min-width:0; }
+.main-content h1,.post-card h1,.post-detail h1 { margin:0 0 20px; color:var(--heading); font-size:26px; font-weight:400; line-height:1.28; }
+.main-content h1 a { color:inherit; }
+.main-content h2 { margin:31px 0 12px; color:#5b5b5b; font-size:20px; font-weight:400; line-height:1.35; }
+.main-content h3 { margin:20px 0 9px; color:#666; font-size:17px; font-weight:600; }
+.main-content h3 span { font-weight:400; }
+.main-content h4 { margin-bottom:6px; color:#606060; }
+.main-content p { margin:0 0 18px; }
+.main-content ul { margin:0 0 18px; padding-left:22px; }
+.main-content li + li { margin-top:7px; }
+.main-content hr { margin:32px 0; border:0; border-top:1px solid var(--border); }
+.post-cover { display:block; width:min(100%, 620px); overflow:hidden; }
+.post-cover img { display:block; width:100%; }
+.entry-meta { margin:15px 0 0; color:#777; font-size:13px; line-height:1.65; }
+.post-nav { margin-top:35px; font-size:14px; }
+.post-detail-cover { display:block; width:min(100%, 680px); margin:0 0 20px; }
+.post-detail p { margin:0 0 18px; }
+.sidebar { color:#777; font-size:13px; line-height:1.75; }
+.sidebar section { margin:0 0 26px; }
+.sidebar h2 { margin:0 0 13px; color:#656565; font-size:12px; font-weight:700; line-height:1.2; }
+.sidebar p { margin:0 0 17px; }
+.sidebar strong { font-weight:400; }
+.sidebar ul { margin:0; padding:0; list-style:none; }
+.sidebar li { margin:0 0 5px; }
+.sidebar a { color:#5f8e9d; }
+.sidebar-budo { display:block; width:132px; max-height:180px; object-fit:cover; margin:9px 0 0; border-radius:50%; }
+.tag-cloud { display:flex; flex-wrap:wrap; gap:3px 8px; }
+.tag-cloud a { white-space:nowrap; }
+.sidebar select { width:100%; padding:6px 8px; color:#666; border:1px solid #d6d6d6; background:#fff; font:inherit; }
+.content-image { display:block; margin:12px 0 20px; max-width:360px; }
+.float-image { float:right; margin:0 0 15px 24px; }
+.portrait { float:left; width:220px; margin:0 25px 16px 0; }
+.portrait img { display:block; width:100%; }
+.portrait figcaption { padding-top:7px; font-size:14px; line-height:1.45; }
+.photo-row { display:flex; flex-wrap:wrap; gap:14px; margin:18px 0; }
+.photo-row img { width:calc(50% - 7px); max-width:250px; object-fit:cover; }
+.black-belts { display:grid; grid-template-columns:repeat(3, 1fr); gap:13px; }
+.black-belts figure { margin:0; }
+.black-belts img { display:block; width:100%; aspect-ratio:1/1.15; object-fit:cover; }
+.black-belts figcaption { padding:4px 0; text-align:center; font-size:13px; }
+.competitor { clear:both; padding:19px 0; border-top:1px solid var(--border); }
+.competitor > img { float:right; width:180px; margin:0 0 12px 20px; }
+.competitor h3 { margin-top:0; }
+.social-intro { margin-top:-6px !important; }
+.photo-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:7px; }
+.photo-grid a { display:block; aspect-ratio:1; overflow:hidden; background:#eee; }
+.photo-grid img { width:100%; height:100%; object-fit:cover; transition:transform .2s ease; }
+.photo-grid a:hover img { transform:scale(1.045); }
+.gallery-status { margin-top:11px !important; font-size:13px; color:#888; }
+.coming-soon { max-width:600px; padding:24px 0 40px; }
+.not-found { max-width:560px; padding:18px 0 46px; }
+.not-found-code { margin:0 0 4px; color:#d6e1e5; font-size:68px; font-weight:700; line-height:1; letter-spacing:.04em; }
+.not-found h1 { margin-bottom:13px; }
+.not-found-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+.not-found-links a { display:inline-block; padding:8px 13px; border:1px solid #7fa6b2; color:#3f788c; font-size:14px; line-height:1.35; }
+.not-found-links a:hover { border-color:#3f788c; background:#f4f8f9; text-decoration:none; }
+.not-found-links a:focus-visible { outline:2px solid #50899c; outline-offset:2px; }
+.site-footer { margin:0 39px; padding:17px 0 22px; border-top:1px solid var(--border); color:#9a9a9a; font-size:12px; }
+.site-footer p { margin:0; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media (max-width:760px) { .site-frame { width:100%; margin:0; box-shadow:none; } .masthead { padding:23px 22px 0; } .brand { padding-bottom:18px; } .brand-name { font-size:23px; } .brand p { font-size:13px; line-height:1.45; } .primary-nav { margin-top:10px; } .primary-nav details { border-bottom:1px solid var(--border); } .primary-nav summary { display:flex; width:44px; height:44px; margin-left:auto; cursor:pointer; align-items:center; justify-content:center; list-style:none; } .primary-nav summary::-webkit-details-marker { display:none; } .primary-nav summary:focus-visible { outline:2px solid #50899c; outline-offset:2px; } .hamburger-icon { display:grid; width:25px; gap:5px; } .hamburger-icon span { display:block; height:2px; border-radius:2px; background:#454545; transition:transform .18s ease, opacity .18s ease; } .primary-nav details[open] .hamburger-icon span:nth-child(1) { transform:translateY(7px) rotate(45deg); } .primary-nav details[open] .hamburger-icon span:nth-child(2) { opacity:0; } .primary-nav details[open] .hamburger-icon span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); } .primary-nav ul { display:none; margin:0; padding:3px 0 11px; border:0; } .primary-nav details[open] ul { display:block; } .primary-nav a { padding:10px 0; margin:0; font-size:14px; } .club-banner { margin:17px 0 25px; } .club-banner img { height:42px; } .two-column-layout { display:block; padding:0 22px 32px; } .sidebar { margin-top:37px; padding-top:28px; border-top:1px solid var(--border); } .main-content h1,.post-card h1,.post-detail h1 { font-size:23px; } .main-content h2 { font-size:19px; } .float-image,.portrait,.competitor > img { float:none; margin:14px 0; } .portrait { width:min(100%, 260px); } .photo-grid { grid-template-columns:repeat(3, 1fr); } .not-found { padding-top:4px; } .not-found-code { font-size:56px; } .site-footer { margin:0 22px; } }
+@media (min-width:761px) { .primary-nav details > ul { display:flex; } }
+
+/* Estructura y bloques procedentes del contenido existente de WordPress. */
+.legacy-content { color:#555; }
+.legacy-content p { margin:0 0 24px; }
+.legacy-content h1,.legacy-content h2,.legacy-content h3,.legacy-content h4 { color:#5b5b5b; font-weight:400; }
+.legacy-content h2 { margin:34px 0 16px; font-size:22px; line-height:1.35; }
+.legacy-content h3 { margin:28px 0 13px; font-size:18px; line-height:1.35; }
+.legacy-content img { height:auto; max-width:100%; }
+.legacy-content figure { margin:0 0 24px; }
+.legacy-content figcaption { color:#777; font-size:13px; line-height:1.45; }
+.legacy-content .wp-block-image img { display:block; }
+.legacy-content figure.aligncenter { margin-left:auto; margin-right:auto; text-align:center; }
+.legacy-content figure.aligncenter > img,
+.legacy-content figure.aligncenter > a > img { margin-left:auto; margin-right:auto; }
+.legacy-content .wp-block-image figcaption { margin-top:6px; text-align:center; }
+.legacy-content .wp-block-gallery { margin:28px 0; }
+.legacy-content .blocks-gallery-grid { display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0; list-style:none; }
+.legacy-content .blocks-gallery-item { display:block; flex:1 1 calc(33.333% - 7px); min-width:0; margin:0; }
+.legacy-content .blocks-gallery-item figure { height:100%; margin:0; }
+.legacy-content .blocks-gallery-item img { width:100%; height:100%; min-height:140px; object-fit:cover; }
+.legacy-content .columns-1 .blocks-gallery-item { flex-basis:100%; }
+.legacy-content .columns-1 .blocks-gallery-item img { min-height:0; object-fit:contain; }
+.legacy-content .wp-block-cover { position:relative; display:grid; min-height:85px; margin:28px auto; overflow:hidden; place-items:center; }
+.legacy-content .wp-block-cover__image-background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.legacy-content .wp-block-cover__inner-container { position:relative; z-index:1; }
+.legacy-content .wp-block-separator { margin:38px 0; border:0; border-top:1px solid var(--border); }
+.legacy-listing > article { margin:0 0 49px; }
+.legacy-listing .entry-header { margin:0 0 17px; }
+.legacy-listing h1.entry-title,.legacy-single-post h1.entry-title { margin:0; color:var(--heading); font-size:25px; font-weight:400; line-height:1.25; }
+.legacy-listing .entry-content { margin:0; }
+.legacy-listing .entry-content > :last-child { margin-bottom:0; }
+.legacy-listing .entry-meta,.legacy-single-post .entry-meta { margin-top:18px; color:#777; font-size:13px; line-height:1.65; }
+.legacy-single-post .entry-header { margin:0 0 22px; }
+.legacy-single-post .entry-content { margin:0; }
+.legacy-content .navigation { display:flex; justify-content:space-between; margin:26px 0 0; font-size:14px; }
+.legacy-content .assistive-text { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+.legacy-content .archive-header { margin:0 0 34px; padding-bottom:18px; border-bottom:1px solid var(--border); }
+.legacy-content .archive-title { margin:0; color:#666; font-size:22px; font-weight:400; }
+.legacy-content .wp-block-columns { display:flex; flex-wrap:wrap; gap:24px; margin:0 0 24px; }
+.legacy-content .wp-block-column { flex:1 1 220px; }
+.legacy-content iframe { max-width:100%; border:0; }
+.legacy-sidebar { color:#777; font-size:13px; line-height:1.75; }
+.legacy-sidebar .widget { margin:0 0 27px; }
+.legacy-sidebar .widget-title { margin:0 0 13px; color:#656565; font-size:12px; font-weight:700; line-height:1.2; text-transform:none; }
+.legacy-sidebar p { margin:0 0 17px; }
+.legacy-sidebar ul { margin:0; padding:0; list-style:none; }
+.legacy-sidebar li { margin:0 0 5px; }
+.legacy-sidebar a { color:#5f8e9d; }
+.legacy-sidebar .wp-block-image { margin:8px 0 0; }
+.legacy-sidebar .wp-block-image img { display:block; width:150px; border-radius:50%; }
+.legacy-sidebar .wp-block-image figcaption { margin-top:4px; font-size:12px; }
+.legacy-sidebar .wp-tag-cloud { display:flex; flex-wrap:wrap; gap:3px 8px; }
+.legacy-sidebar .wp-tag-cloud li { margin:0; }
+.legacy-sidebar select { width:100%; padding:6px 8px; color:#666; border:1px solid #d6d6d6; background:#fff; font:inherit; }
+@media (max-width:760px) { .legacy-sidebar { margin-top:37px; padding-top:28px; border-top:1px solid var(--border); } .legacy-content .blocks-gallery-item { flex-basis:calc(50% - 5px); } .legacy-content .columns-1 .blocks-gallery-item { flex-basis:100%; } .legacy-listing h1.entry-title,.legacy-single-post h1.entry-title { font-size:23px; } }

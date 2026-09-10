@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageShell from '../../../components/PageShell.astro';
+import { legacyListings, legacyPages, legacyPosts } from '../../../data/legacy-content';
+export function getStaticPaths() {
+  const content = [legacyListings.home, legacyListings.academia, ...Object.values(legacyPages), ...legacyPosts.map((post) => post.content)].join('\n');
+  const tags = [...new Set([...content.matchAll(/href="\/index\.php\/tag\/([^/]+)\//g)].map((match) => match[1]))];
+  return tags.map((tag) => ({ params: { slug: tag }, props: { tag } }));
+}
+const { tag } = Astro.props;
+---
+<BaseLayout title={`${tag} | GIMNASIO CHANG taekwondo`}><PageShell><section class="coming-soon"><h1>Etiqueta: {tag}</h1><p>El archivo de etiquetas se incorporará en la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section></PageShell></BaseLayout>

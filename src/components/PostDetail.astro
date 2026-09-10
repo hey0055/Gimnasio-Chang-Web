@@ -1,0 +1,6 @@
+---
+import type { CollectionEntry } from 'astro:content';
+const { post, Content } = Astro.props as { post: CollectionEntry<'posts'>; Content: any };
+const formattedDate = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
+---
+<article class="post-detail"><h1>{post.data.title}</h1><img class="post-detail-cover" src={post.data.cover} alt="Cuadro de honor del Campeonato de Europa de Kyorugi 2026" /><Content /><p class="entry-meta">Publicado en {post.data.categories.join(', ')} el {formattedDate}.</p><nav class="post-nav" aria-label="Navegación de entradas"><a href="/blog-en-preparacion/">← Más sobre números</a></nav></article>

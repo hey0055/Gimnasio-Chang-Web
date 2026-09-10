@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/PageShell.astro';
+import { legacyListings } from '../data/legacy-content';
+
+export function getStaticPaths() {
+  const paths = [...new Set([...legacyListings.home.matchAll(/href="\/(?!index\.php\/|assets\/)([^"#?]+)"/g)].map((match) => match[1].replace(/\/$/, '')))];
+  return paths.map((legacy) => ({ params: { legacy } }));
+}
+---
+
+<BaseLayout title="Archivo histórico | GIMNASIO CHANG taekwondo"><PageShell><section class="coming-soon"><h1>Archivo histórico</h1><p>Esta URL histórica se está preparando para la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section></PageShell></BaseLayout>

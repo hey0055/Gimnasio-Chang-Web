@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import banner from '../assets/site/chrome/bandalogo2.jpg';
+import { navigation } from '../data/site';
+const currentPath = Astro.url.pathname;
+---
+<header class="masthead"><div class="brand"><a href="/" class="brand-name">GIMNASIO CHANG <span>taekwondo</span></a><p>blog del Gimnasio Chang, enseñando taekwondo en Valencia desde 1978</p></div><nav aria-label="Navegación principal" class="primary-nav"><details><summary aria-label="Abrir o cerrar el menú principal"><span class="hamburger-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">Menú principal</span></summary><ul>{navigation.map((item) => <li><a class:list={[currentPath === item.href && 'is-current']} href={item.href}>{item.label}</a></li>)}</ul></details></nav><a href="/" class="club-banner" aria-label="Inicio de Gimnasio Chang"><Image src={banner} alt="Emblemas del Gimnasio Chang" widths={[480, 960]} sizes="(max-width: 760px) 100vw, 882px" priority /></a></header>
+<script>
+  const mobileMenuQuery = window.matchMedia('(max-width: 760px)');
+  const primaryMenu = document.querySelector<HTMLDetailsElement>('.primary-nav details');
+  const syncPrimaryMenu = () => {
+    if (mobileMenuQuery.matches) {
+      primaryMenu?.removeAttribute('open');
+    } else {
+      primaryMenu?.setAttribute('open', '');
+    }
+  };
+
+  syncPrimaryMenu();
+  mobileMenuQuery.addEventListener('change', syncPrimaryMenu);
+</script>

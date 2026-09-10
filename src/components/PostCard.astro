@@ -1,0 +1,6 @@
+---
+import type { CollectionEntry } from 'astro:content';
+const { post } = Astro.props as { post: CollectionEntry<'posts'> };
+const formattedDate = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
+---
+<article class="post-card"><h1><a href={post.data.legacyPath}>{post.data.title}</a></h1><a href={post.data.legacyPath} class="post-cover"><img src={post.data.cover} alt="Cuadro de honor del Campeonato de Europa de Kyorugi 2026" /></a><p class="entry-meta">Esta entrada fue publicada en {post.data.categories.map((category, index) => <Fragment>{index > 0 && ', '}<a href="/blog-en-preparacion/">{category}</a></Fragment>)} y etiquetada con {post.data.tags.map((tag, index) => <Fragment>{index > 0 && ', '}<a href="/blog-en-preparacion/">{tag}</a></Fragment>)} el <a href={post.data.legacyPath}>{formattedDate}</a>.</p></article>

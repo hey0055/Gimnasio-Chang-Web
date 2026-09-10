@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/PageShell.astro';
+---
+
+<BaseLayout title="Página no encontrada | Gimnasio Chang" description="La página solicitada no está disponible.">
+  <PageShell>
+    <section class="not-found" aria-labelledby="not-found-title">
+      <p class="not-found-code" aria-hidden="true">404</p>
+      <h1 id="not-found-title">Página no encontrada</h1>
+      <p>La dirección que has escrito no existe, ha cambiado o todavía no está disponible.</p>
+      <nav class="not-found-links" aria-label="Enlaces de recuperación">
+        <a href="/">Volver al inicio</a>
+        <a href="/index.php/about/">Conocer el gimnasio</a>
+      </nav>
+    </section>
+  </PageShell>
+</BaseLayout>

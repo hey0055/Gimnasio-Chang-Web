@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegacyContent from '../../components/LegacyContent.astro';
+import PageShell from '../../components/PageShell.astro';
+import { legacyPages } from '../../data/legacy-content';
+---
+
+<BaseLayout title="EL CLUB | GIMNASIO CHANG taekwondo"><PageShell><h1>EL CLUB</h1><LegacyContent content={legacyPages.about} /></PageShell></BaseLayout>

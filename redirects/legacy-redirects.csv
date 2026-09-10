@@ -1,0 +1,6 @@
+source,destination,status,notes
+/index.php/category/*,/blog-en-preparacion/,301,Archivo de categorías pendiente de fase 2
+/index.php/tag/*,/blog-en-preparacion/,301,Archivo de etiquetas pendiente de fase 2
+/index.php/[año]/[mes]/[día]/*,/blog-en-preparacion/,301,Entradas históricas pendientes de fase 2
+/index.php/page/*,/blog-en-preparacion/,301,Paginación histórica pendiente de fase 2
+/index.php/[año]/[mes]/,/blog-en-preparacion/,301,Archivos mensuales pendientes de fase 2

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegacyContent from '../../components/LegacyContent.astro';
+import PageShell from '../../components/PageShell.astro';
+import { legacyListings, legacyPages, legacyPosts } from '../../data/legacy-content';
+
+export function getStaticPaths() {
+  const protectedPaths = new Set(['/index.php/about/', '/index.php/maestros/', '/index.php/taekwondo/', '/index.php/patrocinadores/', '/index.php/zona-club/']);
+  const content = [legacyListings.home, legacyListings.academia, ...Object.values(legacyPages), ...legacyPosts.map((post) => post.content)].join('\n');
+  const linkedPaths = [...content.matchAll(/href="(\/index\.php\/[^"#?]+\/?)"/g)].map((match) => match[1].endsWith('/') ? match[1] : `${match[1]}/`);
+  const paths = new Set([...legacyPosts.map((post) => post.path), ...linkedPaths]);
+  return [...paths]
+    .filter((path) => !protectedPaths.has(path) && !/^\/index\.php\/(?:category|tag)\/[^/]+\/$/.test(path))
+    .map((path) => ({ params: { legacy: path.replace('/index.php/', '').replace(/\/$/, '') }, props: { path } }));
+}
+
+const { path } = Astro.props;
+const post = legacyPosts.find((entry) => entry.path === path);
+---
+
+<BaseLayout title={`${post?.title ?? 'Archivo histórico'} | GIMNASIO CHANG taekwondo`}><PageShell>{post ? <LegacyContent content={post.content} className="legacy-single-post" /> : <section class="coming-soon"><h1>Archivo histórico</h1><p>Esta URL histórica se está preparando para la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section>}</PageShell></BaseLayout>
