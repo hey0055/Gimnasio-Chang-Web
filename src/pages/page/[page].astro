@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import BlogListing from '../../components/BlogListing.astro';
+import { allPosts, PAGE_SIZE } from '../../lib/blog';
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return Array.from({ length: Math.max(0, Math.ceil(posts.length / PAGE_SIZE) - 1) }, (_, i) => ({ params: { page: String(i + 2) }, props: { posts, page: i + 2 } }));
+}
+const { posts, page } = Astro.props;
+---
+<BaseLayout title={`Blog · Página ${page} | GIMNASIO CHANG taekwondo`}><PageShell><BlogListing posts={posts} page={page} /></PageShell></BaseLayout>

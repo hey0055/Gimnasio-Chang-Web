@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import LegacyContent from './LegacyContent.astro';
+import { postDate, categoryName } from '../lib/blog';
+const { post, detail = false } = Astro.props as { post: CollectionEntry<'posts'>; detail?: boolean };
+---
+<article class:list={['legacy-content', { 'legacy-single-post': detail }]}>
+  <header class="entry-header"><h1 class="entry-title">{detail ? post.data.title : <a href={post.data.legacyPath}>{post.data.title}</a>}</h1></header>
+  <LegacyContent content={post.body ?? ''} className="entry-content" />
+  <footer class="entry-meta">Publicado en {post.data.categories.map((name, i) => <Fragment>{i > 0 && ', '}<a href={`/index.php/category/${post.data.categorySlugs[i]}/`}>{categoryName(name, post.data.categorySlugs[i])}</a></Fragment>)}{post.data.tags.length > 0 && <Fragment> y etiquetado con {post.data.tags.map((name, i) => <Fragment>{i > 0 && ', '}<a href={`/index.php/tag/${post.data.tagSlugs[i]}/`}>{name}</a></Fragment>)}</Fragment>} el <a href={post.data.legacyPath}><time datetime={post.data.publishedAt.toISOString()}>{postDate(post.data.publishedAt)}</time></a>.</footer>
+</article>

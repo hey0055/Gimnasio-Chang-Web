@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LegacyContent from '../components/LegacyContent.astro';
+import BlogListing from '../components/BlogListing.astro';
 import PageShell from '../components/PageShell.astro';
-import { legacyListings } from '../data/legacy-content';
+import { allPosts } from '../lib/blog';
+const posts = await allPosts();
 ---
 
-<BaseLayout><PageShell><LegacyContent content={legacyListings.home} className="legacy-listing" /></PageShell></BaseLayout>
+<BaseLayout><PageShell><BlogListing posts={posts} /></PageShell></BaseLayout>

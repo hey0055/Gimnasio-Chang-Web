@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BlogPost from './BlogPost.astro';
+import { PAGE_SIZE } from '../lib/blog';
+interface Props { posts: CollectionEntry<'posts'>[]; page?: number; basePath?: string; title?: string }
+const { posts, page = 1, basePath = '/', title } = Astro.props;
+const pages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+const pageUrl = (n: number) => n === 1 ? basePath : `${basePath}page/${n}/`;
+---
+<div class="legacy-content legacy-listing">
+  {title && <header class="archive-header"><h1>{title}</h1></header>}
+  {posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((post) => <BlogPost post={post} />)}
+  {!posts.length && <p>No hay artículos en este archivo.</p>}
+  {pages > 1 && <nav class="navigation" aria-label="Páginas del blog">
+    <span>{page < pages && <a href={pageUrl(page + 1)}>← Artículos anteriores</a>}</span>
+    <span>Página {page} de {pages}</span>
+    <span>{page > 1 && <a href={pageUrl(page - 1)}>Artículos más recientes →</a>}</span>
+  </nav>}
+</div>

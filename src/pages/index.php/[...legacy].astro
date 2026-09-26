@@ -3,19 +3,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegacyContent from '../../components/LegacyContent.astro';
 import PageShell from '../../components/PageShell.astro';
 import { legacyListings, legacyPages, legacyPosts } from '../../data/legacy-content';
+import BlogPost from '../../components/BlogPost.astro';
+import BlogListing from '../../components/BlogListing.astro';
+import { allPosts, blogArchives, PAGE_SIZE } from '../../lib/blog';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  const archives = blogArchives(posts);
+  const generated: any[] = posts.map((post, index) => ({ params: { legacy: decodeURI(post.data.legacyPath.replace('/index.php/', '').replace(/\/$/, '')) }, props: { path: post.data.legacyPath, post, previous: posts[index + 1], next: posts[index - 1] } }));
+  for (const [basePath, archive] of archives) {
+    for (let page = 1; page <= Math.ceil(archive.posts.length / PAGE_SIZE); page++) {
+      if (page === 1 && /^\/index\.php\/(category|tag)\//.test(basePath)) continue;
+      const path = page === 1 ? basePath : `${basePath}page/${page}/`;
+      generated.push({ params: { legacy: decodeURI(path.replace('/index.php/', '').replace(/\/$/, '')) }, props: { path, archive, basePath, page } });
+    }
+  }
   const protectedPaths = new Set(['/index.php/about/', '/index.php/maestros/', '/index.php/taekwondo/', '/index.php/patrocinadores/', '/index.php/zona-club/']);
   const content = [legacyListings.home, legacyListings.academia, ...Object.values(legacyPages), ...legacyPosts.map((post) => post.content)].join('\n');
   const linkedPaths = [...content.matchAll(/href="(\/index\.php\/[^"#?]+\/?)"/g)].map((match) => match[1].endsWith('/') ? match[1] : `${match[1]}/`);
   const paths = new Set([...legacyPosts.map((post) => post.path), ...linkedPaths]);
-  return [...paths]
-    .filter((path) => !protectedPaths.has(path) && !/^\/index\.php\/(?:category|tag)\/[^/]+\/$/.test(path))
-    .map((path) => ({ params: { legacy: path.replace('/index.php/', '').replace(/\/$/, '') }, props: { path } }));
+  const importedPaths = new Set(generated.map((entry) => entry.props.path));
+  return [...generated, ...[...paths]
+    .filter((path) => !importedPaths.has(path) && !protectedPaths.has(path) && !/^\/index\.php\/(?:category|tag)\/[^/]+\/$/.test(path))
+    .map((path) => ({ params: { legacy: decodeURI(path.replace('/index.php/', '').replace(/\/$/, '')) }, props: { path } }))];
 }
 
-const { path } = Astro.props;
-const post = legacyPosts.find((entry) => entry.path === path);
+const { path, post, previous, next, archive, basePath, page } = Astro.props;
+const legacyPost = legacyPosts.find((entry) => entry.path === path);
 ---
 
-<BaseLayout title={`${post?.title ?? 'Archivo histórico'} | GIMNASIO CHANG taekwondo`}><PageShell>{post ? <LegacyContent content={post.content} className="legacy-single-post" /> : <section class="coming-soon"><h1>Archivo histórico</h1><p>Esta URL histórica se está preparando para la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section>}</PageShell></BaseLayout>
+<BaseLayout title={`${post?.data.title ?? archive?.title ?? legacyPost?.title ?? 'Archivo histórico'} | GIMNASIO CHANG taekwondo`} description={post?.data.description}><PageShell>
+  {post ? <Fragment><BlogPost post={post} detail /><nav class="navigation post-nav" aria-label="Navegación de artículos"><span>{previous && <a href={previous.data.legacyPath}>← {previous.data.title}</a>}</span><span>{next && <a href={next.data.legacyPath}>{next.data.title} →</a>}</span></nav><p><a href="/">Volver al blog</a></p></Fragment>
+  : archive ? <BlogListing posts={archive.posts} title={archive.title} page={page} basePath={basePath} />
+  : legacyPost ? <LegacyContent content={legacyPost.content} className="legacy-single-post" /> : <section class="coming-soon"><h1>Archivo histórico</h1><p>Esta URL histórica se está preparando para la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section>}
+</PageShell></BaseLayout>

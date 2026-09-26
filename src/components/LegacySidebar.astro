@@ -1,8 +1,20 @@
 ---
 import { legacySidebar } from '../data/legacy-content';
 import { renderLegacyHtml } from '../lib/render-legacy-images';
+import { allPosts, blogArchives, escapeHtml } from '../lib/blog';
 
-const normalizedSidebar = await renderLegacyHtml(legacySidebar);
+const posts = await allPosts();
+const archives = blogArchives(posts);
+const recent = `<ul>${posts.slice(0, 5).map((post) => `<li><a href="${post.data.legacyPath}">${escapeHtml(post.data.title)}</a></li>`).join('')}</ul>`;
+const cloudStyles = new Map([...legacySidebar.matchAll(/<a href="(\/index\.php\/category\/[^"\s]+)"[^>]*style="([^"]+)"/g)].map((match) => [match[1], match[2]]));
+const categories = `<ul class="wp-tag-cloud">${[...archives].filter(([path]) => path.startsWith('/index.php/category/') && path !== '/index.php/category/uncategorized/').sort((a, b) => a[1].title.localeCompare(b[1].title, 'es')).map(([path, archive]) => `<li><a class="tag-cloud-link" href="${path}" style="${cloudStyles.get(path) ?? 'font-size:12pt;'}" aria-label="${escapeHtml(archive.title)} (${archive.posts.length} artículos)">${escapeHtml(archive.title)}</a></li>`).join('')}</ul>`;
+const months = [...archives].filter(([path]) => /^\/index\.php\/\d{4}\/\d{2}\/$/.test(path)).sort((a, b) => b[0].localeCompare(a[0]));
+const options = `<option value="">Seleccionar mes</option>${months.map(([path, archive]) => `<option value="${path}">${escapeHtml(archive.title)} (${archive.posts.length})</option>`).join('')}`;
+const updatedSidebar = legacySidebar
+  .replace(/(<aside\b[^>]*class="[^"]*widget_recent_entries[^>]*>[\s\S]*?)<ul>[\s\S]*?<\/ul>/i, `$1${recent}`)
+  .replace(/<ul\b[^>]*class=(["'])wp-tag-cloud[^"']*\1[^>]*>[\s\S]*?<\/ul>/i, categories)
+  .replace(/(<select\b[^>]*>)[\s\S]*?(<\/select>)/i, `$1${options}$2`);
+const normalizedSidebar = await renderLegacyHtml(updatedSidebar);
 ---
 
 <aside class="legacy-sidebar" aria-label="Información complementaria" set:html={normalizedSidebar}></aside>

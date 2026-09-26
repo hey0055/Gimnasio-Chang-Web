@@ -1,15 +1,11 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import LegacyContent from '../../../components/LegacyContent.astro';
 import PageShell from '../../../components/PageShell.astro';
-import { legacyListings } from '../../../data/legacy-content';
-export function getStaticPaths() {
-  const categories = [
-    ['02 Corea', 'corea'], ['academia', 'academia'], ['alumnos', 'alumnos'], ['avisos', 'avisos'], ['campeonatos', 'campeonatos'], ['club', 'club'], ['combate', 'combate'], ['Coreano', 'coreano'], ['crónica', 'cronica'], ['Cultura', 'cultura'], ['curiosidades', 'curiosidades'], ['entrenamiento', 'entrenamiento'], ['exámenes', 'examenes'], ['festivos', 'festivos'], ['fotografías', 'fotografias'], ['fotos', 'fotos'], ['historia', 'historia'], ['información', 'informacion'], ['noticias', 'noticias'], ['opinión', 'opinion'], ['premios', 'premios'], ['salud', 'salud'], ['técnica', 'tecnica'], ['Uncategorized', 'uncategorized'], ['videos', 'videos'],
-  ];
-  return categories.map(([category, slug]) => ({ params: { slug }, props: { category, slug } }));
+import BlogListing from '../../../components/BlogListing.astro';
+import { allPosts, blogArchives } from '../../../lib/blog';
+export async function getStaticPaths() {
+  return [...blogArchives(await allPosts())].filter(([path]) => path.startsWith('/index.php/category/')).map(([path, archive]) => ({ params: { slug: path.split('/')[3] }, props: { ...archive, path } }));
 }
-const { category } = Astro.props;
-const { slug } = Astro.props;
+const { posts, title, path } = Astro.props;
 ---
-<BaseLayout title={`${category} | GIMNASIO CHANG taekwondo`}><PageShell>{slug === 'academia' ? <LegacyContent content={legacyListings.academia} className="legacy-listing" /> : <section class="coming-soon"><h1>{category}</h1><p>Esta sección del archivo histórico se incorporará en la segunda fase del blog.</p><p><a href="/">Volver a la portada</a></p></section>}</PageShell></BaseLayout>
+<BaseLayout title={`${title} | GIMNASIO CHANG taekwondo`}><PageShell><BlogListing posts={posts} title={title} basePath={path} /></PageShell></BaseLayout>

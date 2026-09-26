@@ -1,5 +1,15 @@
 # Astro Starter Kit: Minimal
 
+## Importación del blog de WordPress
+
+`node scripts/import-wordpress.mjs --dry-run` muestra las entradas que se importarán sin modificar archivos ni descargar imágenes.
+
+`node scripts/import-wordpress.mjs` importa el XML de `import/`, actualiza las entradas por ID/URL de WordPress y guarda las imágenes en `src/assets/posts`. Se puede seleccionar otro export con `--file ruta.xml`. El cuerpo conserva el HTML original, incluyendo galerías; los vídeos antiguos de Flash se convierten a iframes de YouTube.
+
+Las imágenes existentes se reutilizan mediante un manifiesto. Si una imagen no se puede recuperar, el artículo muestra «Imagen original no disponible», el detalle queda en `import/wordpress-report.json` y el comando devuelve código 1. Una nueva ejecución vuelve a intentar esas imágenes. No se considera completa la recuperación de imágenes mientras el informe contenga errores.
+
+El blog usa diez artículos por página, ordenados por fecha descendente. Conserva las URLs históricas y genera archivos de categorías, etiquetas y meses. Después de importar: `npm run build` y `node scripts/verify-wordpress.mjs`.
+
 ```sh
 npm create astro@latest -- --template minimal
 ```

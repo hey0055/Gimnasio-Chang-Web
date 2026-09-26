@@ -8,6 +8,12 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Imágenes de artículos Markdown
+
+- A partir de ahora, al crear un archivo `.md`, guardar sus nuevas imágenes directamente en `src/assets/posts/`.
+- No crear subcarpetas por artículo, fecha, idioma ni origen dentro de esa carpeta.
+- Usar nombres de archivo únicos para evitar sobrescribir imágenes y reutilizar las existentes cuando corresponda.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
