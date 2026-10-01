@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { basename } from 'node:path';
+import { basename, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineCollection, z } from 'astro:content';
 
@@ -30,7 +30,7 @@ function parseFrontmatter(source: string) {
 const posts = defineCollection({
   loader: {
     name: 'chang-markdown-loader',
-    async load({ store, parseData, renderMarkdown, generateDigest, watcher, logger }) {
+    async load({ config, store, parseData, renderMarkdown, generateDigest, watcher, logger }) {
       const directory = new URL('./content/posts/', import.meta.url);
       async function syncPosts() {
         const entries = [];
@@ -40,7 +40,9 @@ const posts = defineCollection({
           const id = basename(fileURLToPath(fileURL), '.md');
           const parsedData = await parseData({ id, data });
           const rendered = await renderMarkdown(body, { fileURL });
-          entries.push({ id, data: parsedData, body, rendered, filePath: fileURLToPath(fileURL), digest: generateDigest(source) });
+          // Astro exige una ruta relativa a la raíz del proyecto (en Linux falla con rutas absolutas).
+          const filePath = relative(fileURLToPath(config.root), fileURLToPath(fileURL)).replaceAll('\\', '/');
+          entries.push({ id, data: parsedData, body, rendered, filePath, digest: generateDigest(source) });
         }
         store.clear();
         for (const entry of entries) store.set(entry);
