@@ -1,5 +1,5 @@
 ---
-title: "María T., primera en el CADU 2026"
+title: "María T. en el CADU 2026"
 description: "Felicitamos a nuestra compañera María T. por su primer puesto en el Campeonato Autonómico Universitario 2026."
 publishedAt: "2026-11-10T18:00:00Z"
 categories: ["campeonatos","noticias"]
@@ -7,7 +7,7 @@ tags: ["campeonatos","competición","noticias","resultados"]
 categorySlugs: ["campeonatos","noticias"]
 tagSlugs: ["campeonatos","competicion","noticias","resultados"]
 cover: "/assets/posts/cadu-2026-maria.webp"
-legacyPath: "/index.php/2026/11/10/maria-t-primera-en-el-cadu-2026/"
+legacyPath: "/index.php/2026/11/10/maria-t-en-el-cadu-2026/"
 bodyFormat: "html"
 ---
 
